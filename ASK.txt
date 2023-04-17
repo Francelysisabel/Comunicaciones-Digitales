@@ -1,0 +1,147 @@
+clear all; close all; clc;
+%Definir tiempo de bit
+paso =0.01; % incremento para el vector tiempo
+tb=0:paso:1;
+
+%Mensaje
+n=16; %cantidad de bits que contendrá el mensaje
+bits=randint(1,n); %se crea una cadena de bits con la cantidad n
+figure(1)
+stem(bits)
+title('Mensaje en bits') %Título para la gráfica
+axis([0 n+2 -0.5 1.5]) %Ubicación del gráfico en el plano cartesiano
+
+A= 2; %Valor de la amplitud de las señales
+Tc=0.5; %Período de la señal portadora
+Fc=1/Tc; %Frecuencia de la señal portadora
+Wc=2*pi*Fc; %Frecuencia angular de la señal portadora
+% Símbolos
+##0 , 0º
+##pi/2, 90º
+##pi , 180º
+##3*pi/2, 270º
+sym1=A*sin(Wc*2*tb);
+sym2=2*A*sin(Wc*2*tb);
+sym3=3*A*sin(Wc*2*tb);
+sym4=4*A*sin(Wc*2*tb);
+
+sym5=5*A*sin(Wc*2*tb);
+sym6=6*A*sin(Wc*2*tb);
+sym7=7*A*sin(Wc*2*tb);
+sym8=8*A*sin(Wc*2*tb);
+
+sym9=9*A*sin(Wc*2*tb);
+sym10=10*A*sin(Wc*2*tb);
+sym11=11*A*sin(Wc*2*tb);
+sym12=12*A*sin(Wc*2*tb);
+
+sym13=13*A*sin(Wc*2*tb);
+sym14=14*A*sin(Wc*2*tb);
+sym15=15*A*sin(Wc*2*tb);
+sym16=16*A*sin(Wc*2*tb);
+
+
+%creamos una matriz vacía donde se almacena el mensaje modulado
+%Realizamos un bucle for que va comprobando bit a bit en la cadena 'bits'
+%para comprobar con cual portadora modular
+mod2=[];
+mod4=[];
+mod8=[];
+mod16=[];
+#subrutina para 2ASK
+##for i=1:1:n-1;
+##  if(bits(i)==0 )
+##    mod2=[mod2 sym1];
+##    elseif(bits(i) == 1)
+##    mod2=[mod2 sym2];
+##  endif
+##
+##endfor
+#subrutina para 4ASK
+##for i=1:2:n-1;
+##  if(bits(i)==0 && bits (i+1) == 0)
+##      mod4=[mod4 sym1];
+##    elseif(bits(i) == 0 && bits(i+1)==1)
+##      mod4=[mod4 sym9];
+##    elseif(bits(i) == 1 && bits(i+1) ==0)
+##      mod4=[mod4 sym2];
+##    elseif(bits(i) ==1 && bits(i+1) == 1)
+##      mod4=[mod4 sym10];
+##
+##  endif
+##
+##endfor
+
+#subrutina para 8ASK
+##for i=1:3:n-1;
+##  if(bits(i)==0 && bits (i+1) == 0 && bits(i+2) == 0)
+##     mod8=[mod8 sym1];
+##     elseif(bits(i)==0 && bits (i+1) == 0 && bits(i+2) == 1)
+##     mod8=[mod8 sym5];
+##     elseif(bits(i)==0 && bits (i+1) == 1 && bits(i+2) == 0)
+##     mod8=[mod8 sym9];
+##     elseif(bits(i)==0 && bits (i+1) == 1 && bits(i+2) == 1)
+##     mod8=[mod8 sym13];
+##     elseif(bits(i)==1 && bits (i+1) == 0 && bits(i+2) == 0)
+##     mod8=[mod8 sym2];
+##     elseif(bits(i)==1 && bits (i+1) == 0 && bits(i+2) == 1)
+##     mod8=[mod8 sym6];
+##     elseif(bits(i)==1 && bits (i+1) == 1 && bits(i+2) == 0)
+##     mod8=[mod8 sym10];
+##     elseif(bits(i)==1 && bits (i+1) == 1 && bits(i+2) == 1)
+##     mod8=[mod8 sym14];
+##  endif
+##
+##endfor
+
+#subrutina para 16ASK
+for i=1:4:n-1;
+  if(bits(i)==0 && bits (i+1) == 0 && bits(i+2) == 0 && bits(i+3) == 0)
+    mod16=[mod16 sym1];
+    elseif(bits(i)==0 && bits (i+1) == 0 && bits(i+2) == 0 && bits(i+3) == 1)
+    mod16=[mod16 sym5];
+    elseif(bits(i)==0 && bits (i+1) == 0 && bits(i+2) == 1 && bits(i+3) == 0)
+    mod16=[mod16 sym9];
+    elseif(bits(i)==0 && bits (i+1) == 0 && bits(i+2) == 1 && bits(i+3) == 1)
+    mod16=[mod16 sym13];
+
+   elseif(bits(i)==0 && bits (i+1) == 1 && bits(i+2) == 0 && bits(i+3) == 0)
+    mod16=[mod16 sym2];
+    elseif(bits(i)==0 && bits (i+1) == 1 && bits(i+2) == 0 && bits(i+3) == 1)
+    mod16=[mod16 sym6];
+    elseif(bits(i)==0 && bits (i+1) == 1 && bits(i+2) == 1 && bits(i+3) == 0)
+    mod16=[mod16 sym10];
+    elseif(bits(i)==0 && bits (i+1) == 1 && bits(i+2) == 1 && bits(i+3) == 1)
+    mod16=[mod16 sym14];
+
+    elseif(bits(i)==1 && bits (i+1) == 0 && bits(i+2) == 0 && bits(i+3) == 0)
+    mod16=[mod16 sym3];
+    elseif(bits(i)==1 && bits (i+1) == 0 && bits(i+2) == 0 && bits(i+3) == 1)
+    mod16=[mod16 sym7];
+    elseif(bits(i)==1 && bits (i+1) == 0 && bits(i+2) == 1 && bits(i+3) == 0)
+    mod16=[mod16 sym11];
+    elseif(bits(i)==1 && bits (i+1) == 0 && bits(i+2) == 1 && bits(i+3) == 1)
+    mod16=[mod16 sym15];
+
+    elseif(bits(i)==1 && bits (i+1) == 1 && bits(i+2) == 0 && bits(i+3) == 0)
+    mod16=[mod16 sym4];
+    elseif(bits(i)==1 && bits (i+1) == 1 && bits(i+2) == 0 && bits(i+3) == 1)
+    mod16=[mod16 sym8];
+    elseif(bits(i)==1 && bits (i+1) == 1 && bits(i+2) == 1 && bits(i+3) == 0)
+    mod16=[mod16 sym12];
+    elseif(bits(i)==1 && bits (i+1) == 1 && bits(i+2) == 1 && bits(i+3) == 1)
+    mod16=[mod16 sym16];
+
+  endif
+
+endfor
+
+##figure(2)
+##subplot(2,2,1), plot(mod2)
+##set(title('Señal Modulada 2ASK'))
+##subplot(2,2,2), plot(mod4)
+##set(title('Señal Modulada 4ASK'))
+##subplot(2,2,3), plot(mod8)
+##set(title('Señal Modulada 8ASK'))
+plot(mod16)
+set(title('Señal Modulada ASK'))
